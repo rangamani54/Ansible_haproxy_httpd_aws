@@ -17,7 +17,7 @@
                     vpc_subnet_id: "{{ VPC_ID_web }}"
                     assign_public_ip: yes
                     region: ap-south-1
-                    group: "{{ sg_id_web }}"
+                    group: "{{ sg_name_web }}"
                     aws_access_key: "{{ access_key }}"
                     aws_secret_key: "{{ secret_key }}"
                     

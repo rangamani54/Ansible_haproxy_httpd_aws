@@ -1,0 +1,72 @@
+- hosts: tag_Name_loadbalancer
+  vars_prompt:
+  - name: port_number
+    private: no
+    prompt: "Enter the port number for load balancer"
+  tasks:
+  - name: "Installing haproxy"
+    package: 
+      name: haproxy
+      state: present
+
+  - name: "Copying haproxy configuration file"
+    template: 
+       src: /ws5/haproxy.cfg.j2
+       dest: /etc/haproxy/haproxy.cfg
+    notify: Restarting haproxy
+
+  - name: "Stopping Firewall on port {{port_number}}"
+    firewalld:
+        port: "{{port_number}}/tcp"
+        zone: public
+        permanent: true
+        immediate: true
+        state: enabled
+
+
+  - name: "Making SElinux permissive"
+    selinux:
+       policy: targeted
+       state: permissive
+
+  - name: "Starting haproxy service"
+    service:
+        name: haproxy
+        state: started
+
+
+  handlers:
+  - name: Restarting haproxy
+    service:
+        name: haproxy
+        state: restarted   
+
+
+
+- hosts: tag_Name_webserver
+  tasks:
+  - name: "Installing httpd software"
+    package:
+        name: 
+           - httpd
+           - php 
+
+  - name: "Copying web page"
+    template: 
+        src: "/ws5/m.php"
+        dest: "/var/www/html/m.php"
+
+  - name: "Starting web service"
+    service:
+        name: httpd
+        state: started
+
+  - name: "Stopping firewall"
+    firewalld:
+         port: "80/tcp"
+         zone: public
+         permanent: true
+         immediate: true
+         state: enabled
+
+ 

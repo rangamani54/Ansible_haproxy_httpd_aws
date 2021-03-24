@@ -84,6 +84,6 @@ backend static
 #---------------------------------------------------------------------
 backend app
     balance     roundrobin
-{% for host in groups['webserver'] %}
+{% for host in groups['tag_Name_webserver'] %}
     server  app1 {{ host }}:80  check
 {% endfor %}

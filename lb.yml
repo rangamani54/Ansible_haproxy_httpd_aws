@@ -11,18 +11,9 @@
 
   - name: "Copying haproxy configuration file"
     template: 
-       src: /ws5/haproxy.cfg.j2
-       dest: /etc/haproxy/haproxy.cfg
+       src: "/ws6/haproxy.cfg.j2"
+       dest: "/etc/haproxy/haproxy.cfg"
     notify: Restarting haproxy
-
-  - name: "Stopping Firewall on port {{port_number}}"
-    firewalld:
-        port: "{{port_number}}/tcp"
-        zone: public
-        permanent: true
-        immediate: true
-        state: enabled
-
 
   - name: "Making SElinux permissive"
     selinux:
@@ -53,7 +44,7 @@
 
   - name: "Copying web page"
     template: 
-        src: "/ws5/m.php"
+        src: "/ws6/m.php"
         dest: "/var/www/html/m.php"
 
   - name: "Starting web service"
@@ -61,12 +52,6 @@
         name: httpd
         state: started
 
-  - name: "Stopping firewall"
-    firewalld:
-         port: "80/tcp"
-         zone: public
-         permanent: true
-         immediate: true
-         state: enabled
+  
 
  

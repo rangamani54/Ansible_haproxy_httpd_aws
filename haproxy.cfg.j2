@@ -85,5 +85,5 @@ backend static
 backend app
     balance     roundrobin
 {% for host in groups['tag_Name_webserver'] %}
-    server  app1 {{ host }}:80  check
+    server  app1 {{ hostvars[host]['ec2_private_dns_name']  }} {{ hostvars[host]['ec2_private_ipaddress'] }}:80  check
 {% endfor %}

@@ -1,0 +1,28 @@
+- hosts: localhost
+  debugger: on_failed
+  vars_files: 
+  - as.yml
+  - vars.yml
+  tasks:
+    ec2:
+       key_name: "{{ key-pair_name }}"
+       instance_type: "t2.micro"     
+       image: "{{ AMI ID }}"
+       wait: yes
+       count_tag: 
+          Name: "{{ name_ins }}"
+       exact_count: "{{ Instance_count }}"
+       instance_tags:
+          Name: "{{ name_ins }}"
+       vpc_subnet_id: "{{ VPC ID }}"
+       assign_public_ip: yes
+       region: "{{ Region }}"
+       group: "{{ sg_name }}"
+       aws_access_key: "{{ access_key }}"
+       aws_secret_key: "{{ secret_key }}"
+      
+
+
+    pause:
+       seconds: 100
+    meta: "refresh_inventory"  

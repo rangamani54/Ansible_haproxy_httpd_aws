@@ -1,0 +1,7 @@
+AMI_ID_lb: "ami-052c08d70def0ac62"
+key_name_lb: "ansiblekey"
+VPC_ID_lb: "subnet-c40108ac"
+Region_lb: "ap-south-1"
+Instance_Name_lb: "loadbalancer"
+Instance_count_lb: 1
+sg_name_lb: "loadbalancer_sg"

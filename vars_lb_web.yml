@@ -1,7 +1,7 @@
 AMI_ID_web: "ami-052c08d70def0ac62"
 key_name_web: "ansiblekey"
 Instance_Name_web: "webserver"
-Instance_count_web: 1
+Instance_count_web: 2
 VPC_ID_web: "subnet-c40108ac"
 Region_web: "ap-south-1"
 sg_name_web: "webserver"
